@@ -1,0 +1,28 @@
+-- Define the player
+local player = game.Players.LocalPlayer
+
+-- Function to collect fruits
+local function collectFruits()
+    -- Get all fruits in the game
+    local fruits = workspace.Fruits:GetChildren()
+    -- Loop through each fruit
+    for _, fruit in ipairs(fruits) do
+        -- Check if the fruit is not collected
+        if fruit.Parent == workspace.Fruits then
+            -- Calculate the distance between the player and the fruit
+            local distance = (player.Character.HumanoidRootPart.Position - fruit.Position).magnitude
+            -- Check if the player is close enough to the fruit
+            if distance <= 10 then
+                -- Teleport the player to the fruit
+                player.Character.HumanoidRootPart.CFrame = CFrame.new(fruit.Position)
+                wait(0.5) -- Wait for a short time to allow the player to collect the fruit
+            end
+        end
+    end
+end
+
+-- Loop to continuously collect fruits
+while true do
+    collectFruits()
+    wait(1) -- Adjust the wait time as needed to avoid performance issues
+end
